@@ -8,8 +8,9 @@ This project outlines how to use **CRUD (CREATE, READ, UPDATE, DELETE)** operati
   The --reload parameter ensures you don't have to restart the application as your making updates. Just simply refresh. 
 
 ## Working with FastAPI Docs
-After running the ***uvicorn*** command, launch your browser and enter this address: **localhost:8000/docs**  
+After running the ***uvicorn*** command, launch your browser and enter this URL address: **localhost:8000/docs**  
 From there you will be to view a live page of all API endpoints.  
+
 FastAPI provides built-in support for Swagger UI integration, which allows you to automatically generate interactive documentation for your API based on your code. 
 
 Below are the HTTP requests/endpoints we will be working with from this app:
