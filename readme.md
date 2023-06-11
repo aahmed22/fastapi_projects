@@ -22,4 +22,20 @@ Below are the HTTP requests/endpoints we will be working with from this app:
 * (PUT) /players/add_player
 * (DELETE) /players/delete_player/{player_name}
 
-![HTTP Requests Project1](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/http_requests_project1.PNG)
+![HTTP Requests Project1](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/http_requests_project1.PNG)
+
+## Default Route
+```python
+@app.get("/")
+async def welcome():
+    return {'message': 'Welcome to the NBA 2023 Finals! Denver Nuggets vs Miami Heat!'}
+```
+
+We first start by showcasing the default route when the app starts. When you enter the address: localhost:8000 you will see this:
+![Preview Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/preview_default_route.PNG)
+
+
+The cool thing about the Swagger UI is that you can access the same thing on the docs page.  
+Proceed with expanding on the first (GET) route "/" and then click the "Try it out" button, followed by "Execute" and you will see the same output in the Response body:
+
+![Preview Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/default_route_doc_project1.PNG)
