@@ -1,5 +1,5 @@
 # Fast API CRUD Operations
-This project outlines how to use CRUD (CREATE, READ, UPDATE, DELETE) operations for Fast API projects. Enjoy!  
+This project outlines how to use **CRUD (CREATE, READ, UPDATE, DELETE)** operations for Fast API projects. Enjoy!  
 
 **Prerequisites**: You will need to setup your environment before you can begin using Fast API. Below are the requirments:
 * Setup ***"venv"*** in your working directory. `python -m venv nameOfEnvironment` (Ex: **python -n venv fastapienv**)
@@ -8,7 +8,11 @@ This project outlines how to use CRUD (CREATE, READ, UPDATE, DELETE) operations 
   The --reload parameter ensures you don't have to restart the application as your making updates. Just simply refresh. 
 
 ## Working with FastAPI Docs
-Below are the HTTP requests we will be working with from this app:
+After running the ***uvicorn*** command, launch your browser and enter this address: **localhost:8000/docs**  
+From there you will be to view a live page of all API endpoints.  
+FastAPI provides built-in support for Swagger UI integration, which allows you to automatically generate interactive documentation for your API based on your code. 
+
+Below are the HTTP requests/endpoints we will be working with from this app:
 * (GET) /players
 * (GET) /players/{player_name}
 * (GET) /players/
