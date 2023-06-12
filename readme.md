@@ -41,7 +41,7 @@ When accessing the app via "localhost:8000", you will encounter the welcome mess
 The cool thing about the Swagger UI is that you can access the same thing on the docs page.  
 Proceed with expanding on the first (GET) route "/" and then click the "Try it out" button, followed by "Execute" and you will see the same output in the Response body:
 
-![Preview Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/default_route_doc_project1.PNG)
+![Output Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/default_route_doc_project1.PNG)
 
 ## (GET) /players
 This endpoint will showcase the two superstar players on each of the respective teams in the 2023 NBA Finals.
@@ -65,10 +65,29 @@ async def get_all_players():
 When interacting with the Swagger UI for this endpoint do the following:
 
 * Click on "Try it out":
-![Preview Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/try_it_out_project1.PNG)
+![Try it Out players route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/try_it_out_project1.PNG)
 
 * Following that clikc on "Execute":
-![Preview Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/execute_project1.PNG)
+![Execute players route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/execute_project1.PNG)
 
 Following that you should see this output:
-![Preview Default Route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_get_players_project1.PNG)
+![Output for players route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_get_players_project1.PNG)
+
+
+## (GET) /players/{player_name}
+This endpoint **"/players/{player_name}"** indicates that we're using path parameters. This allows for Dynamic routing, where different values can be passed in the URL to represent different resources or entities. This enables the creation of flexible and customizable routes in our API. For instance, a path parameter can represent a specific user ID or a product code, allowing you to retrieve or manipulate specific resources based on the provided parameter.  
+
+In our case, we want to get info on a single player. Thus we need to take in a value in order to accomplish this:
+```python
+@app.get("/players/{player_name}")
+async def get_player_info(player_name: str):
+    for player in nba_finals_players:
+        if player.get('name').casefold() == player_name.casefold():
+            return player
+```
+
+Within the Swagger UI, you can enter the value like so:
+![Input player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_path_parameter_name_project1.PNG)
+
+Following that you should see this output:
+![Output player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_path_parameter_player_name_project1.PNG)
