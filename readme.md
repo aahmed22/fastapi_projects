@@ -20,7 +20,7 @@ Below are the HTTP requests/endpoints we will be working with from this app:
 * (GET) /players/
 * (GET) /players/by_position/{selected_position}
 * (POST) /players/add_player
-* (PUT) /players/add_player
+* (PUT) /players/update_player
 * (DELETE) /players/delete_player/{player_name}
 
 ![HTTP Requests Project1](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/http_requests_project1.PNG)
@@ -95,6 +95,7 @@ Following that you should see this output:
 
 ## (GET) /players/
 This endpoint **"/players/"** is a bit different compared to the previous endpoints used. In this endpoint we will be using query parameters. Query parameters allow for flexible API requests by providing optional parameters that can be included or excluded based on the client's needs.  
+
 In our project case we want to get all the superstar players associated from a single team. 
 ```python
 @app.get("/players/")
@@ -113,3 +114,40 @@ Let's try it out via Swagger UI, we'll enter "Miami Heat" as our input:
 
 We should then see this output:
 ![Input player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_query_parameter_players_project1.PNG)
+
+## (GET) /players/by_position/{selected_position}
+```python
+@app.get("/players/by_position/{selected_position}")
+async def get_players_by_position(selected_position: str):
+    selected_position_return = []
+    for player in nba_finals_players:
+        if player.get('position').casefold() == selected_position.casefold():
+            selected_position_return.append(player)
+    return selected_position_return
+```
+
+## (POST) /players/add_player
+```python
+@app.post("/players/add_player")
+async def add_player(new_player=Body()):
+    nba_finals_players.append(new_player)
+```
+
+## (PUT) /players/update_player
+```python
+@app.put("/players/update_player")
+async def update_player(updated_player=Body()):
+    for index in range(len(nba_finals_players)):
+        if nba_finals_players[index].get('name').casefold() == updated_player.get('name').casefold():
+            nba_finals_players[index] = updated_player
+```
+
+## (DELETE) /players/delete_player/{player_name}
+```python
+@app.delete("/players/delete_player/{player_name}")
+async def delete_player(player_name: str):
+    for index in range(len(nba_finals_players)):
+        if nba_finals_players[index].get('name').casefold() == player_name.casefold():
+            nba_finals_players.pop(index)
+            break
+```
