@@ -138,7 +138,7 @@ Here is the output:
 
 
 ## (POST) /players/add_player
-For our endpoint **"/players/add_player"** we will be using the "POST" method to create/add a player to the list.
+For our endpoint **"/players/add_player"** we will be using the **"POST"** method to create/add a player to the list.
 
 Below is the endpoint defined:
 ```python
@@ -148,7 +148,7 @@ async def add_player(new_player=Body()):
 ```
 Notice that we are using the Body() method. This method is typically used as a parameter in the function signature of a FastAPI endpoint. It is used to describe the structure and data type of the request body that the API endpoint expects. 
 
-Here is the request body we will be using adding an additional player to the list for the Denver Nuggets team:
+Here is the request body we will be using, adding an additional player to the list for the Denver Nuggets team:
 ```json
 {
     "name": "Aaron Gordon",
@@ -175,7 +175,7 @@ async def update_player(updated_player=Body()):
             nba_finals_players[index] = updated_player
 ```
 
-We will be using this response body to update Bam Adebayo position from center to forward:
+We will be using this response body to update Bam Adebayo position from ***center to forward***:
 ```json
 {
     "name": "Bam Adebayo",
@@ -186,7 +186,7 @@ We will be using this response body to update Bam Adebayo position from center t
 Here's the input via Swagger UI:
 ![Input update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_update_player_project1.PNG)
 
-Now, lets view the output by executing the **/players** endpoint and view the update on Bam Adebayo:
+Now, lets view the output by executing the **/players** endpoint and view the update on Bam Adebayo record:
 ![Output update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_update_player_project1.PNG)
 
 
