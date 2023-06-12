@@ -91,3 +91,25 @@ Within the Swagger UI, you can enter the value like so:
 
 Following that you should see this output:
 ![Output player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_path_parameter_player_name_project1.PNG)
+
+
+## (GET) /players/
+This endpoint **"/players/"** is a bit different compared to the previous endpoints used. In this endpoint we will be using query parameters. Query parameters allow for flexible API requests by providing optional parameters that can be included or excluded based on the client's needs.  
+In our project case we want to get all the superstar players associated from a single team. 
+```python
+@app.get("/players/")
+async def get_players_by_team_query(team: str):
+    players_by_team_return = []
+    for player in nba_finals_players:
+        if player.get('team').casefold() == team.casefold():
+            players_by_team_return.append(player)
+    return players_by_team_return
+```
+
+Here's what you would enter when query via URL: `http://localhost:8000/players/?team=Miami%20Heat`
+
+Let's try it out via Swagger UI, we'll enter "Miami Heat" as our input:
+![Input team players route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_query_parameter_players_project1.PNG)
+
+We should then see this output:
+![Input player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_query_parameter_players_project1.PNG)
