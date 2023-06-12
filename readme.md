@@ -87,7 +87,7 @@ async def get_player_info(player_name: str):
 ```
 
 Within the Swagger UI, you can enter the value like so:
-![Input player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_path_parameter_name_project1.PNG)
+![Input player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_path_parameter_player_name_project1.PNG.PNG)
 
 Following that you should see this output:
 ![Output player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_path_parameter_player_name_project1.PNG)
