@@ -186,7 +186,7 @@ We will be using this response body to update Bam Adebayo position from center t
 Here's the input via Swagger UI:
 ![Input update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_update_player_project1.PNG)
 
-Now, lets view the output by executing the **/players** endpoint and view the new addition made:
+Now, lets view the output by executing the **/players** endpoint and view the update on Bam Adebayo:
 ![Output update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_update_player_project1.PNG)
 
 
