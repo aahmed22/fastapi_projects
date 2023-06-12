@@ -113,9 +113,12 @@ Let's try it out via Swagger UI, we'll enter "Miami Heat" as our input:
 ![Input team players route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_query_parameter_players_project1.PNG)
 
 We should then see this output:
-![Input player name route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_query_parameter_players_project1.PNG)
+![Output team players route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_query_parameter_players_project1.PNG)
 
 ## (GET) /players/by_position/{selected_position}
+For our endpoint **"/players/by_position/{selected_position}"** we will be using path parameters again and this time we would like to get all the players available based on the position they play on the court.
+
+Below is the endpoint defined:
 ```python
 @app.get("/players/by_position/{selected_position}")
 async def get_players_by_position(selected_position: str):
@@ -126,12 +129,39 @@ async def get_players_by_position(selected_position: str):
     return selected_position_return
 ```
 
+Our input choice will be "center":
+![Input position route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_selected_position_project1.PNG)
+
+Here is the output:
+![Output position route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_selected_position_project1.PNG)
+
+
+
 ## (POST) /players/add_player
+For our endpoint **"/players/add_player"** we will be using the "POST" method to create/add a player to the list.
+
+Below is the endpoint defined:
 ```python
 @app.post("/players/add_player")
 async def add_player(new_player=Body()):
     nba_finals_players.append(new_player)
 ```
+Notice that we are using the Body() method. This method is typically used as a parameter in the function signature of a FastAPI endpoint. It is used to describe the structure and data type of the request body that the API endpoint expects. 
+
+Here is the request body we will be using adding an additional player to the list for the Denver Nuggets team:
+```json
+{
+    "name": "Aaron Gordon",
+    "team": "Denver Nuggets",
+    "position": "forward"
+}
+```
+Here's the input via Swagger UI:
+![Input Add player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_add_player_project1.PNG)
+
+Now, lets view the output by executing the **/players** endpoint and view the new addition made:
+![Output Add player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_add_player_project1.PNG)
+
 
 ## (PUT) /players/update_player
 ```python
