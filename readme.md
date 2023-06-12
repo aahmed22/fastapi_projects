@@ -164,6 +164,9 @@ Now, lets view the output by executing the **/players** endpoint and view the ne
 
 
 ## (PUT) /players/update_player
+For our endpoint **"/players/update_player"** we will be using the **"PUT"** method to update a player in our list.
+
+Below is the update endpoint defined:
 ```python
 @app.put("/players/update_player")
 async def update_player(updated_player=Body()):
@@ -172,7 +175,25 @@ async def update_player(updated_player=Body()):
             nba_finals_players[index] = updated_player
 ```
 
+We will be using this response body to update Bam Adebayo position from center to forward:
+```json
+{
+    "name": "Bam Adebayo",
+    "team": "Miami Heat",
+    "position": "forward"
+}
+```
+Here's the input via Swagger UI:
+![Input update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_update_player_project1.PNG)
+
+Now, lets view the output by executing the **/players** endpoint and view the new addition made:
+![Output update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_update_player_project1.PNG)
+
+
 ## (DELETE) /players/delete_player/{player_name}
+Finally to conclude our CRUD operations project we will be using the **Delete** method for our endpoint **"/players/delete_player/{player_name}"**
+
+Below is the delete endpoint defined:
 ```python
 @app.delete("/players/delete_player/{player_name}")
 async def delete_player(player_name: str):
@@ -181,3 +202,9 @@ async def delete_player(player_name: str):
             nba_finals_players.pop(index)
             break
 ```
+
+For our input parameter, we will just enter the player's name via Swagger UI:
+![Input delete player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/input_delete_player_project1.PNG)
+
+Now, lets view the output by executing the **/players** endpoint and we should see "Aaron Gordon" removed from our list:
+![Output update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_delete_player_project1.PNG)
