@@ -49,7 +49,7 @@ class StoreItem:
 
 
 ## Pydantics and Data Validation
-Pydantics is a library that is used for data validation and how to handle data coming to our FastAPI app. 
+Pydantics is a library that is used for data validation and how to handle data coming to our FastAPI app. We will be using the "BaseModel" from the Pydantic library to assist us with validating the variables within the object itself. 
 
 ```python
 class ItemRequest(BaseModel):
@@ -59,15 +59,28 @@ class ItemRequest(BaseModel):
     description: str = Field(min_length=1, max_length=100)
     rating: int = Field(gt=1, lt=6)
     year_release: int = Field(gt=1999, lt=2031)
+```
+The snippet above will help us with data Validation. Should the incoming request to **create or update** an item match our validation in-place. Then we can transform it into a 'StoreItem', thus allowing us to either save or update an existing item in our Store list. 
 
-    class Config:
-        schema_extra = {
-            'example': {
-                'name': 'A new item',
-                'cost': 12.99,
-                'description': 'A new description of store item',
-                'rating': 5,
-                'year_release': 2023
-            }
-        }
+### Creating an Item
+Create an Item:
+```python
+@app.post("/create-item", status_code=status.HTTP_201_CREATED)
+async def create_item(item_request: ItemRequest):
+    new_item = StoreItem(**item_request.dict())
+    STORE.append(find_item_id(new_item))
+```
+
+### Updating an Item
+Update an Item:
+```python
+@app.put("/items/update_item", status_code=status.HTTP_204_NO_CONTENT)
+async def update_item(item: ItemRequest):
+    item_changed = False
+    for i in range(len(STORE)):
+        if STORE[i].id == item.id:
+            STORE[i] = item 
+            item_changed = True
+    if not item_changed:
+        raise HTTPException(status_code=404, detail='Item not found!')
 ```
