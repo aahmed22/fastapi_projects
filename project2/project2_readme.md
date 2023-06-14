@@ -11,7 +11,7 @@ Here is a list of our API endpoints for this project:
 * (POST) /create-item
 * (PUT) /update_item
 
-![HTTP Endpoints Project2]('https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project2/overview_api_endpoints_project2.PNG')
+![HTTP Endpoints Project2](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project2/overview_api_endpoints_project2.PNG)
 
 
 In our project example we are going to have a list called **"STORE"** which will hold a list of ***"StoreItem objects"***. 
