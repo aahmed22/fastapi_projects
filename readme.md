@@ -213,4 +213,4 @@ Now, lets view the output by executing the **/players** endpoint and we should s
 ## Project 2
 Testing...
 
-![Click Here for Project 2 Details](project2/project2_readme.md)
+[Click Here for Project 2 Details](project2/project2_readme.md)
