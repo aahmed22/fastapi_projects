@@ -25,6 +25,6 @@ Below are the routes we will be working with from this app:
 
 
 
-![HTTP Requests Project1](snapshots/project1/preview_default_route.PNG)
+![HTTP Requests Project1](../snapshots/project1/preview_default_route.PNG)
 
 
