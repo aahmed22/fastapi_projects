@@ -23,6 +23,6 @@ Below are the routes we will be working with from this app:
 * (PUT) /players/update_player
 * (DELETE) /players/delete_player/{player_name}
 
-![HTTP Requests Project1](snapshots/projects1/preview_default_route.PNG)
+![HTTP Requests Project1](snapshots/project1/preview_default_route.PNG)
 
 
