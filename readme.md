@@ -208,3 +208,9 @@ For our input parameter, we will just enter the player's name via Swagger UI:
 
 Now, lets view the output by executing the **/players** endpoint and we should see "Aaron Gordon" removed from our list:
 ![Output update player route](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project1/output_delete_player_project1.PNG)
+
+
+## Project 2
+Testing...
+
+![Click Here for Project 2 Details](https://github.com/aahmed22/fastapi_projects/blob/main/project2/project2_readme.md)
