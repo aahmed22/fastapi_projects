@@ -1,22 +1,8 @@
-# Data Validation and Status Codes
+# Pydantics/Data Validation Rules and Status Codes
 
-In this project, the focus will be on showcasing data validations and status codes in our FastAPI app. 
+This project will discuss the Pydantics library for data validation and showcase the use of status codes.  
+For this project, we will be using a Python list called **STORE** which will hold a list of **StoreItem objects**:
 
-Here is a list of our API endpoints for this project:
-* (GET) /items
-* (GET) /items/{item_id}
-* (DELETE) /items/{item_id}
-* (GET) /items/
-* (GET) /items/year_released/
-* (POST) /create-item
-* (PUT) /update_item
-
-![HTTP Endpoints Project2](https://github.com/aahmed22/fastapi_projects/blob/main/snapshots/project2/overview_api_endpoints_project2.PNG)
-
-
-In our project example we are going to have a list called **"STORE"** which will hold a list of ***"StoreItem objects"***. 
-
-Here's our list:
 ```python
 STORE = [
     StoreItem(1, 'Standing Computer Desk', 499.99, 'A mobile standing computer desk with wheels', 5, 2020),
@@ -27,7 +13,7 @@ STORE = [
 ]
 ```
 
-Below is our class **StoreItem** and we have included a constructor to initialize the object. 
+Below is the **StoreItem** class defined along with a constructor to initialize the object:
 ```python
 class StoreItem:
     id: int
@@ -44,13 +30,24 @@ class StoreItem:
         self.description = description
         self.rating = rating
         self.year_release = year_release
-
 ```
 
+Here are all the routes we will be working with in this project:
+
+* (GET) /items
+* (GET) /items/{item_id}
+* (DELETE) /items/{item_id}
+* (GET) /items/
+* (GET) /items/year_released/
+* (POST) /create-item
+* (PUT) /update_item
+
+![Project 2 Routes](../snapshots/project2/project2_routes.PNG)
 
 ## Pydantics and Data Validation
-Pydantics is a library that is used for data validation and how to handle data coming to our FastAPI app. We will be using the "BaseModel" from the Pydantic library to assist us with validating the variables within the object itself. 
-
+Pydantics is a library that is used for data validation and how to handle data coming to our FastAPI app.  
+To use pydantic in your app, add the following in your app file: `from pydantic import BaseModel, Field`  
+We will be using the **"BaseModel"** from the Pydantic library to assist us with validating the variables within the object itself:
 ```python
 class ItemRequest(BaseModel):
     id: Optional[int] = Field(name='id is not needed')
@@ -60,10 +57,32 @@ class ItemRequest(BaseModel):
     rating: int = Field(gt=1, lt=6)
     year_release: int = Field(gt=1999, lt=2031)
 ```
-The snippet above will help us with data Validation. Should the incoming request to **create or update** an item match our validation in-place. Then we can transform it into a 'StoreItem', thus allowing us to either save or update an existing item in our Store list. 
+The snippet above will help us with data Validation. Should the incoming request to **create/update** an item match our validations in-place, then we can transform it into a **StoreItem** object. Thus allowing us to **add/update an item** to our STORE list. 
+
+### Deeper look at the validations rules
+To use 
+Let's examine the fields closely:
+* id: Is set to being Optional, meaning it does not need to be included in the request body
+* name: Is a string type and for the Field validation it must be minimum 3 characters
+* cost: Is of type float and the value has to greater than 0.0
+* description: Is of type string and the number of characters has to be between 1 and 100
+* rating: Is of type int and the value has to be between 1 and 5
+* year_release: Is of type int and the value is between 1999 and 2031
+
+Let's look at this endpoint **read_item**:
+```python
+@app.get("/items/{item_id}", status_code=status.HTTP_200_OK)
+async def read_item(item_id: int = Path(gt=0)):
+    for item in STORE:
+        if item.id == item_id:
+            return item
+    raise HTTPException(status_code=404, detail='Item not found!')
+```
+
+From looking at this endpoint definition, we see the usage of path parameters `"/items/{item_id}"`. 
+
 
 ### Creating an Item
-Create an Item:
 ```python
 @app.post("/create-item", status_code=status.HTTP_201_CREATED)
 async def create_item(item_request: ItemRequest):
@@ -71,8 +90,9 @@ async def create_item(item_request: ItemRequest):
     STORE.append(find_item_id(new_item))
 ```
 
+For the endpoint **"create_item"**
+
 ### Updating an Item
-Update an Item:
 ```python
 @app.put("/items/update_item", status_code=status.HTTP_204_NO_CONTENT)
 async def update_item(item: ItemRequest):
