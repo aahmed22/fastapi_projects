@@ -59,8 +59,7 @@ class ItemRequest(BaseModel):
 ```
 The snippet above will help us with data Validation. Should the incoming request to **create/update** an item match our validations in-place, then we can transform it into a **StoreItem** object. Thus allowing us to **add/update an item** to our STORE list. 
 
-### Deeper look at the validations rules
-To use 
+### Deeper look at the validations rules 
 Let's examine the fields closely:
 * id: Is set to being Optional, meaning it does not need to be included in the request body
 * name: Is a string type and for the Field validation it must be minimum 3 characters
@@ -69,31 +68,31 @@ Let's examine the fields closely:
 * rating: Is of type int and the value has to be between 1 and 5
 * year_release: Is of type int and the value is between 1999 and 2031
 
-Let's look at this endpoint **read_item**:
-```python
-@app.get("/items/{item_id}", status_code=status.HTTP_200_OK)
-async def read_item(item_id: int = Path(gt=0)):
-    for item in STORE:
-        if item.id == item_id:
-            return item
-    raise HTTPException(status_code=404, detail='Item not found!')
-```
 
-From looking at this endpoint definition, we see the usage of path parameters `"/items/{item_id}"`. 
+### Status Codes
+Status Codes are a set of standards on how a client/server handle the result of a request. It provides context to the submitter whether they're request was successfulr or not. 
+
+For the focus of this project, we'll be looking at some of the 200 and 400 series status codes:
+* 200 (OK) - The response for a successful request. Used with "GET" request when data is being returned. 
+* 201 (CREATED) - The response for a successful creation of a new resource. 
+* 204 (NO CONTENT) - The response is generated for a successful execution. 
+                     However, the submitter is not creating a resource, nor is there data being returned. 
+                     This status code is typically used with PUT requests. 
+* 400 (BAD REQUEST) - Unsuccessful in processing the request due to a client error. Used for invalid request methods. 
+* 401 (UNAUTHORIZED) - The client does not have valid authentication for target resource. 
+* 404 (NOT FOUND) - The requested resource cannot be found.
+* 422 (UNPROCESSABLE ENTITY)- Semantic errors in client request.
 
 
-### Creating an Item
+### Creating and Updating an item
+Let's look at the two endpoints **create_item** and **update_item**:
 ```python
 @app.post("/create-item", status_code=status.HTTP_201_CREATED)
 async def create_item(item_request: ItemRequest):
     new_item = StoreItem(**item_request.dict())
     STORE.append(find_item_id(new_item))
-```
 
-For the endpoint **"create_item"**
 
-### Updating an Item
-```python
 @app.put("/items/update_item", status_code=status.HTTP_204_NO_CONTENT)
 async def update_item(item: ItemRequest):
     item_changed = False
@@ -104,3 +103,8 @@ async def update_item(item: ItemRequest):
     if not item_changed:
         raise HTTPException(status_code=404, detail='Item not found!')
 ```
+
+The "create_item" endpoint has the parameter "item_request" which is of type "ItemRequest" from our BaseModel class. Should the response body fit the validations set, then a new object of type StoreItem will be created and a status 201 will be displayed `status.HTTP_201_CREATED`.
+
+
+For the "update_item" endpoint, we loop through the STORE list and verify if we have the matching item id based on the submission body. If the item id is a match, then we take the body request and assign it to the current value id matched during the loop phase. We use the item_changed as a flag variable to indicate the change being done. The status code displayed will be 204: `status.HTTP_204_NO_CONTENT`
