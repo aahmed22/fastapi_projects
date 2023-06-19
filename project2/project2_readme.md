@@ -107,4 +107,4 @@ async def update_item(item: ItemRequest):
 The "create_item" endpoint has the parameter "item_request" which is of type "ItemRequest" from our BaseModel class. Should the response body fit the validations set, then a new object of type StoreItem will be created and a status 201 will be displayed `status.HTTP_201_CREATED`.
 
 
-For the "update_item" endpoint, we loop through the STORE list and verify if we have the matching item id based on the submission body. If the item id is a match, then we take the body request and assign it to the current value id matched during the loop phase. We use the item_changed as a flag variable to indicate the change being done. The status code displayed will be 204: `status.HTTP_204_NO_CONTENT`
+For the "update_item" endpoint, we loop through the STORE list and verify if we have the matching item id based on the submission body. If the item id is a match, then we take the body request and assign it to the current value id matched during the loop phase. We use the item_changed as a flag variable to indicate the change being done. The status code displayed will be 204: `status.HTTP_204_NO_CONTENT`.
