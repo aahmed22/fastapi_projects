@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+passlib[bcrypt]
+python-multipart
+python-jose[cryptography]
+psycopg2-binary
+alembic
+aiofiles
+jinja2

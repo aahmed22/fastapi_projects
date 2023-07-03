@@ -6,3 +6,6 @@ The project series in this repo is to help get you up-to-speed with using the Fa
 
 ## Project 2: Pydantics/Data Validation Rules and Status Codes
 [Click Here to View Project 2 Details](project2/project2_readme.md)
+
+## Project 3: Store Inventory App
+[Click Here to View Project 3 Details](project3/project3_readme.md)

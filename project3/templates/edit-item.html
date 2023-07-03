@@ -1,0 +1,29 @@
+{% include 'base.html' %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Let's edit your item!
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" class="form-control" name="item_name" value="{{item.item_name}}" required>
+                </div>
+                <div class="form-group">
+                    <label>Cost</label>
+                    <input type="text" class="form-control" name="cost" value="{{item.cost}}" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="3" required>{{item.description}}</textarea>
+                </div>
+               
+                <button type="submit" class="btn btn-primary">Edit your item</button>
+                <button onclick="window.location.href='/store/delete/{{item.id}}'"
+                        type="button" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
