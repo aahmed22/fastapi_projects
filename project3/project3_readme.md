@@ -53,11 +53,58 @@ We have the function to edit items in our inventory. Proceed with clicking the e
 
 ![Edit an item part1](../snapshots/project3/edit_item_page.PNG)
 
+Below is the post request for the edit operation defined:
+```python
+@router.post("/edit-item/{item_id}", response_class=HTMLResponse)
+async def edit_item_commit(request: Request, item_id: int, item_name: str = Form(...),
+                           cost: float = Form(...), description: str = Form(...),
+                           db: Session = Depends(get_db)):
+
+    user = await get_current_user(request)
+    if user is None:
+        return RedirectResponse(url="/auth", status_code=status.HTTP_302_FOUND)
+
+    store_model = db.query(models.Items).filter(models.Items.id == item_id).first()
+
+    store_model.item_name = item_name
+    store_model.cost = cost
+    store_model.description = description
+    
+    db.add(store_model)
+    db.commit()
+
+    return RedirectResponse(url="/store", status_code=status.HTTP_302_FOUND)
+```
+
 Once you click "Edit your Item" button, the changes will be saved and overwrite wants being stored in Postgres.  
 The changes are reflected over in your home page:
 
 ![Home Part3](../snapshots/project3/home_page3.PNG)
 
+
+
 ### Deletions
 To delete the item, just simply click the edit button via home page and on the edit page, click **Delete**.  
 From there the record will be deleted from Postgres and will no longer be viewable from the Home Page. 
+
+Below is the **delete_item** endpoint defined:
+```python
+@router.get("/delete/{item_id}")
+async def delete_item(request: Request, item_id: int, db: Session = Depends(get_db)):
+
+    user = await get_current_user(request)
+    if user is None:
+        return RedirectResponse(url="/auth", status_code=status.HTTP_302_FOUND)
+
+    item_model = db.query(models.Items).filter(models.Items.id == item_id)\
+        .filter(models.Items.owner_id == user.get("id")).first()
+
+    if item_model is None:
+        return RedirectResponse(url="/Items", status_code=status.HTTP_302_FOUND)
+
+    db.query(models.Items).filter(models.Items.id == item_id).delete()
+
+    db.commit()
+
+    return RedirectResponse(url="/store", status_code=status.HTTP_302_FOUND)
+```

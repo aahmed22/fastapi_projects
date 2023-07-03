@@ -73,7 +73,7 @@ async def create_item(request: Request, item_name: str = Form(...), cost: float 
 
 
 @router.get("/edit-item/{item_id}", response_class=HTMLResponse)
-async def edit_todo(request: Request, item_id: int, db: Session = Depends(get_db)):
+async def edit_item(request: Request, item_id: int, db: Session = Depends(get_db)):
 
     user = await get_current_user(request)
     if user is None:
@@ -85,7 +85,7 @@ async def edit_todo(request: Request, item_id: int, db: Session = Depends(get_db
 
 
 @router.post("/edit-item/{item_id}", response_class=HTMLResponse)
-async def edit_todo_commit(request: Request, item_id: int, item_name: str = Form(...),
+async def edit_item_commit(request: Request, item_id: int, item_name: str = Form(...),
                            cost: float = Form(...), description: str = Form(...),
                            db: Session = Depends(get_db)):
 
@@ -106,7 +106,7 @@ async def edit_todo_commit(request: Request, item_id: int, item_name: str = Form
 
 
 @router.get("/delete/{item_id}")
-async def delete_todo(request: Request, item_id: int, db: Session = Depends(get_db)):
+async def delete_item(request: Request, item_id: int, db: Session = Depends(get_db)):
 
     user = await get_current_user(request)
     if user is None:
